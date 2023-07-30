@@ -1,0 +1,71 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #026e00, #609dff);
+    color: #ffffff;
+    line-height: 1.6;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+}
+
+#app {
+max-width: 800px;
+padding: 20px;
+text-align: center;
+}
+
+.card {
+background-color: #1b488a;
+color: #ffffff;
+padding: 20px;
+border-radius: 20px;
+box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+animation: fadeIn 1s ease-in-out;
+transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+transform: scale(1.05);
+box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes fadeIn {
+0% {
+    opacity: 0;
+}
+100% {
+    opacity: 1;
+}
+}
+
+h1 {
+font-size: 3rem;
+margin: 0;
+}
+
+main {
+padding: 20px 0;
+}
+
+footer {
+text-align: center;
+padding: 10px;
+background-color: #1b488a;
+color: #ffffff;
+border-radius: 20px;
+box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.footer-icon {
+font-size: 1.5rem;
+margin-right: 5px;
+}
+
+footer:hover {
+transform: scale(1.05);
+box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
