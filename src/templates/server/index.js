@@ -2,6 +2,10 @@ import express from "express";
 import path from "path";
 import morgan from "morgan";
 import { fileURLToPath } from "url"
+import env from "dotenv"
+import db from "./config/database.js"
+
+env.config()
 
 const app = express();
 const __fileName = fileURLToPath(import.meta.url)

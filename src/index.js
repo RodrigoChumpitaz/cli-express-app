@@ -1,45 +1,11 @@
-import fs from "fs"
+import inquirer from "inquirer";
 import path from "path"
-import inquirer from "inquirer"
-import { promisify } from "util"
 import { fileURLToPath } from "url"
-import { packageTemplate } from "./templates/package.js"
+import { createProjectStructure } from "./utils/projectStructure.js"
 
 
-const mkdir = promisify(fs.mkdir)
-const writeFile = promisify(fs.writeFile)
 const __fileName = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__fileName)
-
-async function createProjectStructure(projectName){
-    const projectDir = path.join(__dirname, projectName)
-
-    try {
-        await mkdir(projectDir);
-        await mkdir(path.join(projectDir, 'routes'));
-        await mkdir(path.join(projectDir, 'controllers'));
-        await mkdir(path.join(projectDir, 'public'));
-
-        // crear archivos dentro de "public"
-        await writeFile(path.join(projectDir, 'public', 'index.html'), fs.readFileSync(path.join(__dirname, 'templates', 'index.html'), 'utf8'));
-        await writeFile(path.join(projectDir, 'public', 'main.css'), fs.readFileSync(path.join(__dirname, 'templates', 'styles', 'main.css'), 'utf8'));
-
-        // Crear archivo index.js
-        await writeFile(path.join(projectDir, 'index.js'), fs.readFileSync(path.join(__dirname, 'templates', 'server', 'index.js'), 'utf8'));
-        await writeFile(path.join(projectDir, 'package.json'), packageTemplate(projectName));
-    
-        console.log(`
-        Success! Created ${projectName} at ${projectDir},
-        Please run the following commands to start:
-        cd ${projectName}
-        npm install (or yarn)
-        npm run dev (or yarn dev)
-        `);
-    } catch (error) {
-        console.error('Error al crear el proyecto:', error);
-    }
-}
-
 
 function promptUser() {
     inquirer
@@ -48,18 +14,32 @@ function promptUser() {
             type: 'input',
             name: 'projectName',
             message: 'Project name: ',
-            validate: (input) => {
-            if (!input) {
-                return 'Debes proporcionar un nombre para el proyecto.';
-            }
-            return true;
-            },
+            // validate: (input) => {
+            // if (!input) {
+            //     return 'Debes proporcionar un nombre para el proyecto.';
+            // }
+            // return true;
+            // },
             default: 'express-project',
         },
+        {
+            type: 'confirm',
+            name: 'useDatabase',
+            message: 'Do you want to use a database in your project?',
+            message: 'Database (Y / N): ',
+        },      
+        {
+            type: 'list',
+            name: 'Database',
+            message: 'Database: ',
+            choices: ['MongoDB', 'MySQL', 'PostgreSQL', 'SQLite'],
+            default: 'MongoDB',
+            when: (answers) => answers.useDatabase === true,
+        }
     ])
     .then((answers) => {
         const projectName = answers.projectName;
-        createProjectStructure(projectName);
+        createProjectStructure(projectName, __dirname, answers.useDatabase);
     });
 }
 
