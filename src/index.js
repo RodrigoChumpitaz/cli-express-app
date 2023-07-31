@@ -14,12 +14,12 @@ function promptUser() {
             type: 'input',
             name: 'projectName',
             message: 'Project name: ',
-            // validate: (input) => {
-            // if (!input) {
-            //     return 'Debes proporcionar un nombre para el proyecto.';
-            // }
-            // return true;
-            // },
+            validate: (input) => {
+            if (!input) {
+                return 'Debes proporcionar un nombre para el proyecto.';
+            }
+            return true;
+            },
             default: 'express-project',
         },
         {

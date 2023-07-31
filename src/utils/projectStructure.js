@@ -22,7 +22,11 @@ export async function createProjectStructure(projectName, __dirname, database){
 
         await writeFile(path.join(projectDir, 'src', 'public', 'index.html'), fs.readFileSync(path.join(__dirname, 'templates', 'index.html'), 'utf8'));
         await writeFile(path.join(projectDir, 'src', 'public', 'main.css'), fs.readFileSync(path.join(__dirname, 'templates', 'styles', 'main.css'), 'utf8'));
+
         await writeFile(path.join(projectDir, 'src', 'config', 'database.js'), fs.readFileSync(path.join(__dirname, 'templates', 'config', 'database.js'), 'utf8'));
+        await writeFile(path.join(projectDir, 'src', 'models', 'User.js'), fs.readFileSync(path.join(__dirname, 'templates', 'model', 'model.js'), 'utf8'));
+        await writeFile(path.join(projectDir, 'src', 'controllers', 'user.controller.js'), fs.readFileSync(path.join(__dirname, 'templates', 'common', 'controller.js'), 'utf8'));
+        await writeFile(path.join(projectDir, 'src', 'routes', 'user.routes.js'), fs.readFileSync(path.join(__dirname, 'templates', 'common', 'routes.js'), 'utf8'));
 
         await writeFile(path.join(projectDir, '.env'), fs.readFileSync(path.join(__dirname, 'templates', 'config', '.env'), 'utf8'));
         await writeFile(path.join(projectDir, 'src', 'index.js'), fs.readFileSync(path.join(__dirname, 'templates', 'server', 'index.js'), 'utf8'));
