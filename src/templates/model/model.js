@@ -4,7 +4,12 @@ const userSchema = new mongoose.Schema({
     name: { type: String },
     email: { type: String },
     password: { type: String },
-    role: { type: String, default: "admin" }  ,
+    role: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Role"
+        }   
+    ],
     status: { type: String, default: "active" }
 },{
     timestamps: true,

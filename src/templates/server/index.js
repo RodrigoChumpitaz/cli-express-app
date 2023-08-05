@@ -4,7 +4,7 @@ import morgan from "morgan";
 import { fileURLToPath } from "url"
 import env from "dotenv"
 import db from "./config/database.js"
-import routes from "./routes/user.routes.js"
+import userRoutes from "./routes/user.routes.js"
 
 env.config()
 
@@ -22,8 +22,9 @@ app.get('/', (req, res) => {
     res.render('index.html');
 });
 
-app.use("/users", routes)
+app.use("/users", userRoutes)
 
 app.listen(3000, () => {
     console.log('Server on port 3000 :D');
+    db();
 });
